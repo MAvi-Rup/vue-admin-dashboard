@@ -1,7 +1,7 @@
 <template>
 	<aside :class="`${is_expanded ? 'is-expanded' : ''}`">
 		<div class="logo">
-			<img :src="logoURL" alt="Vue" /> 
+			<img src="https://i.ibb.co/yq7hVy8/maskable-icon.png" alt="Vue" /> 
 		</div>
 
 		<div class="menu-toggle-wrap">
@@ -13,20 +13,24 @@
 		<h3>Menu</h3>
 		<div class="menu">
 			<router-link to="/" class="button">
-				<span class="material-icons">home</span>
+				<span class="material-icons">dashboard</span>
 				<span class="text">Home</span>
 			</router-link>
-			<router-link to="/about" class="button">
-				<span class="material-icons">description</span>
-				<span class="text">About</span>
+			<router-link to="/registration" class="button">
+				<span class="material-icons">app_registration</span>
+				<span class="text">Farmers Registration</span>
 			</router-link>
-			<router-link to="/team" class="button">
+			<router-link to="/transport-permit" class="button">
+				<span class="material-icons">add_circle</span>
+				<span class="text">Generate TP</span>
+			</router-link>
+			<router-link to="/loan" class="button">
+				<span class="material-icons">credit_card</span>
+				<span class="text">Loan Sanction</span>
+			</router-link>
+			<router-link to="/all-farmers" class="button">
 				<span class="material-icons">group</span>
-				<span class="text">Team</span>
-			</router-link>
-			<router-link to="/contact" class="button">
-				<span class="material-icons">email</span>
-				<span class="text">Contact</span>
+				<span class="text">View Farmers</span>
 			</router-link>
 		</div>
 
@@ -43,7 +47,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import logoURL from '../assets/logo.png'
+//import logoURL from '../assets/logo.png'
 
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 

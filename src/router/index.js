@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
+import Home from '../views/HomeView.vue'
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -9,9 +9,22 @@ const router = createRouter({
 			component: Home
 		},
 		{
-			path: '/about',
-			component: () => import('../views/About.vue')
+			path: '/registration',
+			component: () => import('../views/FarmerRegistrationView.vue')
 		},
+		{
+			path: '/transport-permit',
+			component: () => import('../views/TransportPermitView.vue')
+		},
+		{
+			path: '/loan',
+			component: () => import('../views/LoanSanctionView.vue')
+		},
+		{
+			path: '/all-farmers',
+			component: () => import('../views/ViewFarmersView.vue')
+		},
+		
 	],
 })
 
