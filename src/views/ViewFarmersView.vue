@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <main>
         <h1>View Farmers page</h1>
 
-    </div>
+    </main>
 </template>
 
 <script setup>

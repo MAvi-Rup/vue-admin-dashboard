@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <main>
         <h1>Transport Permit page</h1>
 
-    </div>
+    </main>
 </template>
 
 <script setup>

@@ -1,8 +1,8 @@
 <template>
-    <div>
+    <main>
         <h1>Loan Sanction Page</h1>
 
-    </div>
+    </main>
 </template>
 
 <script setup>
