@@ -28,6 +28,10 @@
 				<span class="material-icons">credit_card</span>
 				<span class="text">Loan Sanction</span>
 			</router-link>
+			<router-link to="/qrCode" class="button">
+				<span class="material-icons">qr_code_2</span>
+				<span class="text">Print QrCode</span>
+			</router-link>
 			<router-link to="/all-farmers" class="button">
 				<span class="material-icons">group</span>
 				<span class="text">View Farmers</span>

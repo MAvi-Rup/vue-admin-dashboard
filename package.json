@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@iconscout/react-unicons": "^2.0.2",
+    "axios": "^1.4.0",
     "vue": "^3.2.25",
     "vue-circular-progress": "^1.0.0",
     "vue-router": "^4.0.12"

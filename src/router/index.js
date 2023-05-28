@@ -24,6 +24,10 @@ const router = createRouter({
 			path: '/all-farmers',
 			component: () => import('../views/ViewFarmersView.vue')
 		},
+		{
+			path: '/qrCode',
+			component: () => import('../views/PrintQrCodeView.vue')
+		},
 		
 	],
 })

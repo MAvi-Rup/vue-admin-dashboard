@@ -32,9 +32,7 @@ defineProps({
   transition: 0.2s;
   margin-top: 20px;
 
-  &:hover {
-    transform: scale(1.05);
-  }
+  
 
   input {
     padding: 8px 12px;

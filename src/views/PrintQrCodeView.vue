@@ -1,6 +1,8 @@
 <template>
     <main>
-        <h1>Loan Sanction Page</h1>
+        <div>
+            <h1>All Transport Permit Generated</h1>
+        </div>
 
     </main>
 </template>
