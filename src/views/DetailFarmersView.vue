@@ -11,10 +11,14 @@
         <p><strong>NID:</strong> {{ farmerData.nid }}</p>
         <p><strong>Plantation:</strong> {{ farmerData.plantation }}</p>
         <p><strong>Routing No:</strong> {{ farmerData.routingNo }}</p>
-        <p><strong>Selected Gilla:</strong> {{ farmerData.selectedGilla }}</p>
-        <p><strong>Selected Upjilla:</strong> {{ farmerData.selectedUpjilla }}</p>
+        <p><strong>Gilla:</strong> {{ farmerData.selectedGilla }}</p>
+        <p><strong>Upjilla:</strong> {{ farmerData.selectedUpjilla }}</p>
         <p><strong>Target:</strong> {{ farmerData.target }}</p>
         <p><strong>Village:</strong> {{ farmerData.village }}</p>
+        <div class="buttons">
+            <button class="edit-button" @click="editFarmer">Edit</button>
+            <button class="delete-button" @click="deleteFarmer">Delete</button>
+        </div>
       </div>
       <div v-else class="loading-message">
         Loading...
@@ -25,6 +29,7 @@
   <script setup>
   import { ref, onMounted } from 'vue';
   import { useRoute } from 'vue-router';
+  import loadDetailsFarmersData from '../function/loadDetailsFarmersData'
   
   const route = useRoute();
   const { id } = route.params;
@@ -33,20 +38,7 @@
   const error = ref(null);
   const farmerData = ref(null);
   
-  const fetchFarmerData = async () => {
-    try {
-      const response = await fetch(`https://ess464k1xk.execute-api.us-west-2.amazonaws.com/prod/producers?id=${id}`);
-      const jsonData = await response.json();
-      farmerData.value = jsonData;
-    } catch (err) {
-      error.value = 'Error loading farmer data.';
-      console.error(err);
-    } finally {
-      isLoading.value = false;
-    }
-  };
-  
-  onMounted(fetchFarmerData);
+  onMounted(loadDetailsFarmersData(farmerData,isLoading,error,id));
   </script>
 
 <style lang="scss" scoped>
@@ -87,4 +79,22 @@ strong{
   background-color: #92e4a4;
   transition: background-color 0.3s ease;
 }
+
+.edit-button,
+.delete-button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #45a049;
+}
+
 </style>
