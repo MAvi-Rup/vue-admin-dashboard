@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/HomeView.vue'
-
+import ViewFarmersView from '../views/ViewFarmersView.vue'
+import DetailFarmersView from '../views/DetailFarmersView.vue'
 const router = createRouter({
 	history: createWebHistory(),
 	routes: [
@@ -22,7 +23,11 @@ const router = createRouter({
 		},
 		{
 			path: '/all-farmers',
-			component: () => import('../views/ViewFarmersView.vue')
+			component: ViewFarmersView,
+		},
+		{
+			path: '/all-farmers/:id',
+			component: DetailFarmersView,
 		},
 		{
 			path: '/qrCode',

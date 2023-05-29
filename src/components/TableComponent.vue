@@ -22,7 +22,7 @@
             <td>{{ farmer.selectedUpjilla }}</td>
             <td>{{ farmer.village }}</td>
             <td>
-              <button @click="viewFarmer(farmer)" class="view-button">View</button>
+              <button @click="viewFarmer(farmer.id)" class="view-button">View</button>
             </td>
           </tr>
         </tbody>
@@ -32,23 +32,17 @@
   
   <script setup>
   import { ref, onMounted } from 'vue';
+import loadData from '../function/loadData';
+import router from '../router';
   
   const farmers = ref([]);
  
-  onMounted(async () => {
-  try {
-    const response = await fetch('/data.json');
-    const data = await response.json();
-    farmers.value = data;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-  }
-});
+  onMounted(loadData(farmers));
   
-  const viewFarmer = (farmer) => {
-    // Handle view farmer action
-    console.log('Viewing farmer:', farmer);
-  };
+  const viewFarmer = (id) => {
+  // Navigate to the dynamic ID-based route
+  router.push(`/all-farmers/${id}`);
+};
   </script>
   
   <style scoped lang="scss">
