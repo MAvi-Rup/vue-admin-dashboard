@@ -9,6 +9,16 @@
         </div>
         <InputComponent v-model="farmersName" type="text" :label="'Name'" class="base-input" />
         <InputComponent v-model="mobileNo" type="text" :label="'Mobile No'" class="base-input" />
+        <div class="input-wrap">
+            <label for="buyingCenter">Buying Center:</label>
+            <select v-model="buyingCenter" class="base-input">
+              <option value="">Select Buying Center</option>
+              <option value="ManikGonj">ManikGonj</option>
+              <option value="Kushtia">Kushtia</option>
+              <option value="Chittagong">Chittagong</option>
+            </select>
+        </div>
+        <InputComponent v-model="tobacoType" type="text" :label="'Tobacco Type'" class="base-input" />
         <InputComponent v-model="baleQuantity" type="text" :label="'Bale Quantity'" class="base-input" />
         <InputComponent type="submit" @submit="submitForm">Submit</InputComponent>
     </div>
@@ -28,6 +38,8 @@ const selectedId = ref('');
 const farmerData = ref([]);
 const farmerJilla = ref('')
 const farmerUpjilla = ref('')
+const tobacoType = ref('')
+const buyingCenter = ref('')
 
 const currentDate = new Date();
 const buyingDate = ref(currentDate.toISOString().slice(0, 10))
@@ -36,27 +48,47 @@ const expiryDate = ref(calculateExpiryDate(currentDate))
 const loadSelectedFarmerData = () => {
   loadFarmerData(farmerData.value, selectedId.value, farmersName, mobileNo,farmerJilla,farmerUpjilla);
 };
-
 const submitForm = (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    console.log({
-        id: selectedId.value,
-        farmersName: farmersName.value,
-        mobileNo: mobileNo.value,
-        baleQuantity: baleQuantity.value,
-        buyingDate: buyingDate.value,
-        expiryDate: expiryDate.value,
-        farmerJilla: farmerJilla.value,
-        farmerUpjilla: farmerUpjilla.value
+  const data = {
+    id: selectedId.value,
+    farmersName: farmersName.value,
+    mobileNo: mobileNo.value,
+    baleQuantity: baleQuantity.value,
+    buyingDate: buyingDate.value,
+    expiryDate: expiryDate.value,
+    farmerJilla: farmerJilla.value,
+    farmerUpjilla: farmerUpjilla.value,
+    buyingCenter: buyingCenter.value,
+    type: tobacoType.value
+  };
+
+  fetch('http://localhost:5001/transport-permit', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log('Data successfully pushed to the database:', result);
+      // Handle the response from the server if needed
+    })
+    .catch(error => {
+      console.error('Error pushing data to the database:', error);
+      // Handle any errors that occurred during the request
     });
 
-    // Reset the form fields after submission
-    selectedId.value = '';
-    farmersName.value = '';
-    mobileNo.value = '';
-    baleQuantity.value = '';
-    event.target.reset();
+  // Reset the form fields after submission
+  selectedId.value = '';
+  farmersName.value = '';
+  mobileNo.value = '';
+  baleQuantity.value = '';
+  buyingCenter.value='',
+  tobacoType.value='';
+  event.target.reset();
 };
 
 onMounted(loadData(farmerData));
