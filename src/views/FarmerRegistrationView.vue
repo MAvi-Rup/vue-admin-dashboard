@@ -3,7 +3,7 @@
     <h1>Farmer's Registration Page</h1>
     <InputComponent v-model="farmersName" type="text" :label="'Name'" class="base-input" />
     <InputComponent v-model="fatherName" type="text" :label="'Father Name'" class="base-input" />
-   <div class="input-wrap">
+    <div class="input-wrap">
       <label for="gilla">Gilla:</label>
       <select v-model="selectedGilla" class="base-input" @change="updateUpjillaOptions" id="gilla">
         <option v-for="gilla in gillaOptions" :key="gilla.value" :value="gilla.value">{{ gilla.label }}</option>
@@ -25,7 +25,9 @@
     <InputComponent v-model="bankName" type="text" :label="'Bank Name'" class="base-input" />
     <InputComponent v-model="branch" type="text" :label="'Branch'" class="base-input" />
     <InputComponent v-model="routingNo" type="number" :label="'Routing Number'" class="base-input" />
-    <InputComponent v-model="farmerPic" type="file" :label="'Farmer Picture'" class="base-input" @change="handleFileInputChange"/>
+    <div class="input-wrap">
+      <input type="file" class="base-input" @change="handleFileInputChange" />
+    </div>
     <InputComponent type="submit" @submit="submitForm">Submit</InputComponent>
   </main>
 </template>
@@ -35,8 +37,8 @@
 import InputComponent from '../components/InputComponent.vue';
 import { ref, watch } from 'vue';
 import clearFormData from '../function/clearFormData';
-
-
+import { jillaUpjilaMap } from "../Data/jillaUpjilaMap"
+import { postFarmersData } from "../function/postFarmersData"
 
 
 const farmersName = ref('');
@@ -51,16 +53,10 @@ const accountNo = ref('');
 const bankName = ref('');
 const branch = ref('');
 const routingNo = ref('');
-const farmerPic = ref(null);
+let farmerPic = ref(null);
+const imageUrl= ref('');
 const selectedGilla = ref('');
 const selectedUpjilla = ref('');
-
-const jillaUpjilaMap = {
-  Chittagong: ["CTGUpjila1", "CTGUpjila2", "CTGUpjila3"],
-  Rajshahi: ["RAJUpjila4", "RAJUpjila5"],
-  Kustia: ["KUUpjila6", "KUUpjila7"],
-  Manikgonj: ["MKUpjila8", "MKUpjila9", "MkUpjila10"]
-};
 
 const upjillaOptions = ref([]);
 const gillaOptions = ref(Object.keys(jillaUpjilaMap).map(jilla => ({ label: jilla, value: jilla })));
@@ -76,10 +72,36 @@ const updateUpjillaOptions = () => {
 
 watch(selectedGilla, updateUpjillaOptions);
 // Form Submit Function
-const submitForm = (event) => {
-    event.preventDefault();
-    
-  console.log({
+
+const handleFileInputChange = (event) => {
+    farmerPic.value = event.target.files[0];
+  };
+
+const submitForm = async (event) => {
+  event.preventDefault();
+
+  const data = new FormData();
+    data.append('file', farmerPic.value);
+    data.append('upload_preset', 'virgo-leaf');
+    data.append('cloud_name', 'dxmcvglht');
+
+    try {
+      const response = await fetch('https://api.cloudinary.com/v1_1/dxmcvglht/image/upload', {
+        method: 'POST',
+        body: data,
+      });
+
+      if (response.ok) {
+        const imageData = await response.json();
+        imageUrl.value=imageData.url;
+        // Do something with the uploaded image data, such as storing it in the database
+      } else {
+        throw new Error('Image upload failed');
+      }
+    } catch (error) {
+      console.error('Error uploading image:', error.message);
+    }
+    const formData = {
     farmersName: farmersName.value,
     fatherName: fatherName.value,
     village: village.value,
@@ -92,43 +114,40 @@ const submitForm = (event) => {
     bankName: bankName.value,
     branch: branch.value,
     routingNo: routingNo.value,
-    //farmerPic: farmerPic.value,
+    farmerPic: farmerPic.value,
     selectedGilla: selectedGilla.value,
     selectedUpjilla: selectedUpjilla.value,
-  });
-
+    url: imageUrl.value
+  };
+  await postFarmersData(formData)
   // Clear the form data after submission
   event.target.reset();
-  clearFormData({farmersName,fatherName,village,nid,mobileNo,location,plantation,target,accountNo,bankName,branch,routingNo,farmerPic,selectedGilla,selectedUpjilla
+  clearFormData({
+    farmersName, fatherName, village, nid, mobileNo, location, plantation, target, accountNo, bankName, branch, routingNo, farmerPic, selectedGilla, selectedUpjilla
   });
-};
 
-
-
-const handleFileInputChange = (event) => {
-    const file = event.target.files[0];
-    farmerPic.value = file;
-};
+}
 
 </script>
 
 
 
 <style lang="scss" scoped>
-h1{
-    text-align: center;
+h1 {
+  text-align: center;
 }
+
 .input-wrap {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   margin-top: 20px;
 
 
 
-  select {
+  select,input {
     padding: 8px 12px;
     font-size: 16px;
     width: 50%;
@@ -146,9 +165,9 @@ h1{
 
   label {
     width: 40px;
-   
+
     margin-right: 10px;
   }
 }
-
 </style>
+
