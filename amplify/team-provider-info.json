@@ -16,5 +16,41 @@
         "vueagroleaffarmer53978bd1": {}
       }
     }
+  },
+  "virgoleaf": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-vueagroleaffarmer-virgoleaf-142136-authRole",
+      "UnauthRoleArn": "arn:aws:iam::278606948394:role/amplify-vueagroleaffarmer-virgoleaf-142136-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::278606948394:role/amplify-vueagroleaffarmer-virgoleaf-142136-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-vueagroleaffarmer-virgoleaf-142136-deployment",
+      "UnauthRoleName": "amplify-vueagroleaffarmer-virgoleaf-142136-unauthRole",
+      "StackName": "amplify-vueagroleaffarmer-virgoleaf-142136",
+      "StackId": "arn:aws:cloudformation:us-east-1:278606948394:stack/amplify-vueagroleaffarmer-virgoleaf-142136/29fa1800-0443-11ee-a4fe-126afaf43bdf",
+      "AmplifyAppId": "d26pftbq9akrpk"
+    },
+    "categories": {
+      "auth": {
+        "vueagroleaffarmer53978bd1": {}
+      }
+    }
+  },
+  "leafvue": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-vueagroleaffarmer-leafvue-132025-authRole",
+      "UnauthRoleArn": "arn:aws:iam::278606948394:role/amplify-vueagroleaffarmer-leafvue-132025-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::278606948394:role/amplify-vueagroleaffarmer-leafvue-132025-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-vueagroleaffarmer-leafvue-132025-deployment",
+      "UnauthRoleName": "amplify-vueagroleaffarmer-leafvue-132025-unauthRole",
+      "StackName": "amplify-vueagroleaffarmer-leafvue-132025",
+      "StackId": "arn:aws:cloudformation:us-east-1:278606948394:stack/amplify-vueagroleaffarmer-leafvue-132025/f2f31bf0-05cc-11ee-bbb7-0e334b4bb37d",
+      "AmplifyAppId": "d26pftbq9akrpk"
+    },
+    "categories": {
+      "auth": {
+        "vueagroleaffarmerffdfbe6f": {}
+      }
+    }
   }
 }

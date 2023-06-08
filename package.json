@@ -15,7 +15,7 @@
     "axios": "^1.4.0",
     "vue": "^3.2.25",
     "vue-circular-progress": "^1.0.0",
-    "vue-router": "^4.0.12"
+    "vue-router": "^4.2.2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",

@@ -36,6 +36,10 @@
 				<span class="material-icons">group</span>
 				<span class="text">View Farmers</span>
 			</router-link>
+			<button class="button" @click="logout">
+				<span class="material-icons">logout</span>
+				<span class="text">Logout</span>
+			  </button>
 		</div>
 
 		<div class="flex"></div>
@@ -52,13 +56,23 @@
 <script setup>
 import { ref } from 'vue'
 //import logoURL from '../assets/logo.png'
-
+import { Auth } from 'aws-amplify';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 
 const ToggleMenu = () => {
 	is_expanded.value = !is_expanded.value
 	localStorage.setItem("is_expanded", is_expanded.value)
 }
+const logout = async () => {
+  try {
+    await Auth.signOut();
+    router.push('/'); // Redirect to login page after logout
+  } catch (error) {
+    console.log(error);
+  }
+};
 </script>
 
 <style lang="scss" scoped>
