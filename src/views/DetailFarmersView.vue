@@ -2,6 +2,7 @@
     <main class="container">
       <h1><strong>Name: </strong>{{ farmerData ? farmerData.farmersName : 'Loading...' }}</h1>
       <div v-if="farmerData" class="farmer-details">
+         <img class="profile-image" :src="farmerData.url" alt="Profile Image" />
         <p><strong>Account No:</strong> {{ farmerData.accountNo }}</p>
         <p><strong>Bank Name:</strong> {{ farmerData.bankName }}</p>
         <p><strong>Branch:</strong> {{ farmerData.branch }}</p>
@@ -33,6 +34,7 @@
   
   const route = useRoute();
   const { id } = route.params;
+  console.log(id)
   
   const isLoading = ref(true);
   const error = ref(null);
@@ -72,6 +74,11 @@ strong{
   font-size: 20px;
   margin-top: 20px;
   color: #666;
+}
+.profile-image {
+  width: 200px;
+  height: auto;
+  margin-bottom: 20px;
 }
 
 /* Add color accent and hover effect */

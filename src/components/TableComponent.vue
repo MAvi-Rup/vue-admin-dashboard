@@ -14,7 +14,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="farmer in farmers" :key="farmer.id">
+          <tr v-for="farmer in farmers" :key="farmer._id">
             <td>{{ farmer.farmersName }}</td>
             <td>{{ farmer.mobileNo }}</td>
             <td>{{ farmer.nid }}</td>
@@ -22,7 +22,7 @@
             <td>{{ farmer.selectedUpjilla }}</td>
             <td>{{ farmer.village }}</td>
             <td>
-              <button @click="viewFarmer(farmer.id)" class="view-button">View</button>
+              <button @click="viewFarmer(farmer._id)" class="view-button">View</button>
             </td>
           </tr>
         </tbody>
@@ -41,7 +41,7 @@ import router from '../router';
   
   const viewFarmer = (id) => {
   // Navigate to the dynamic ID-based route
-  router.push(`/all-farmers/${id}`);
+  router.push(`/farmers/${id}`);
 };
   </script>
   

@@ -33,6 +33,8 @@
 </template>
 
 <script setup>
+import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 import InputComponent from '../components/InputComponent.vue';
 import { ref, watch } from 'vue';
@@ -77,15 +79,22 @@ const handleFileInputChange = (event) => {
     farmerPic.value = event.target.files[0];
   };
 
+
 const submitForm = async (event) => {
   event.preventDefault();
-
+  if (!farmersName.value || !fatherName.value || !village.value || !nid.value || !mobileNo.value || !location.value || !plantation.value || !target.value || !accountNo.value || !bankName.value || !branch.value || !routingNo.value || !farmerPic.value || !selectedGilla.value || !selectedUpjilla.value) {
+    // Display an error toast or message
+    // You can use a toast library like "vue-toastification" or display an error message in the UI
+    toast.error('Please fill in all the required fields.');
+    return;
+  }
   const data = new FormData();
     data.append('file', farmerPic.value);
     data.append('upload_preset', 'virgo-leaf');
     data.append('cloud_name', 'dxmcvglht');
 
     try {
+      //const formData = prepareFormData();
       const response = await fetch('https://api.cloudinary.com/v1_1/dxmcvglht/image/upload', {
         method: 'POST',
         body: data,

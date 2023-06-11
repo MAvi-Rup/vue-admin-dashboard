@@ -26,7 +26,7 @@ const router = createRouter({
 			component: ViewFarmersView,
 		},
 		{
-			path: '/all-farmers/:id',
+			path: '/farmers/:id',
 			component: DetailFarmersView,
 		},
 		{

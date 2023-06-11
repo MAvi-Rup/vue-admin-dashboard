@@ -1,3 +1,5 @@
+import { toast } from "vue3-toastify";
+
 export const postFarmersData = async (formData) => {
     try {
       const response = await fetch('http://localhost:5001/farmers', {
@@ -9,9 +11,9 @@ export const postFarmersData = async (formData) => {
       });
   
       if (response.ok) {
-        console.log('Data posted successfully!');
+        toast.success('Form submitted successfully!');
       } else {
-        console.error('Failed to post data:', response.statusText);
+        toast.error('Failed to post data:', response.statusText);
       }
     } catch (error) {
       console.error('Error posting data:', error.message);

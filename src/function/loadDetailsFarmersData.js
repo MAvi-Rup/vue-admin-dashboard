@@ -1,6 +1,6 @@
 const loadDetailsFarmersData = async (farmerData,isLoading,error,id) => {
     try {
-      const response = await fetch(`https://ess464k1xk.execute-api.us-west-2.amazonaws.com/prod/producers?id=${id}`);
+      const response = await fetch(`http://localhost:5001/farmer/${id}`);
       const jsonData = await response.json();
       farmerData.value = jsonData;
     } catch (err) {
