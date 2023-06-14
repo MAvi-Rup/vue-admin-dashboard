@@ -25,11 +25,12 @@
           <td>{{ farmer.buyingCenter }}</td>
           <td style="color: brown;">{{ farmer.type }}</td>
           <td>
-            <button @click="printQrCode(farmer._id)" class="view-button">Print QrCode</button>
-            <iframe ref="printFrame" style="display: none;"></iframe>
+            <button @click="printQrCode(farmer._id,farmer.farmersName)" class="view-button">Print QrCode</button>
+            
           </td>
           <td>
             <button @click="() => printTransportPermit(farmer._id)" class="view-button">Print TP</button>
+            <iframe ref="printFrame" style="display: none;"></iframe>
 
           </td>
         </tr>
@@ -40,9 +41,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import printJS from 'print-js';
+import QRCode from 'qrcode';
 import loadTransportPermit from '../function/loadTransportPermit';
 import printTransportPermitData from '../function/printTransportPermit';
+import printQrCodeValue from '../function/printQrCodeValue';
+
 
 const transportPermit = ref([]);
 const employeeData = ref(null);
@@ -51,9 +54,18 @@ onMounted(async () => {
   await loadTransportPermit(transportPermit);
 });
 
-const printQrCode = (id) => {
-  // Implement your QR code printing logic here
-  console.log(id)
+const printQrCode = async (id, name) => {
+  // Generate the QR code value by combining the id and name
+  const qrCodeValue = `${id} - ${name}`;
+
+  try {
+    // Generate the QR code image data URL
+    const qrCodeDataURL = await QRCode.toDataURL(qrCodeValue);
+    printQrCodeValue(qrCodeDataURL)
+    
+  } catch (error) {
+    console.error('Error generating QR code:', error);
+  }
 };
 
 const printTransportPermit= async (id) => {

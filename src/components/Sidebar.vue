@@ -36,6 +36,10 @@
 				<span class="material-icons">group</span>
 				<span class="text">View Farmers</span>
 			</router-link>
+			<button class="button" @click="openScanner">
+				<span class="material-icons">qr_code_scanner</span>
+				<span class="text">Scanner</span>
+			</button>
 		</div>
 
 		<div class="flex"></div>
@@ -58,6 +62,12 @@ const is_expanded = ref(localStorage.getItem("is_expanded") === "true")
 const ToggleMenu = () => {
 	is_expanded.value = !is_expanded.value
 	localStorage.setItem("is_expanded", is_expanded.value)
+}
+
+const openScanner = () => {
+	console.log('pressed')
+  // Call your function to open the scanner here
+  // This function will be executed when the "Scanner" button is clicked
 }
 </script>
 

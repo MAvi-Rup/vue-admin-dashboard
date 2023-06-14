@@ -1,9 +1,9 @@
 <template>
     <main>
-        <div>
+        
             <h1>All Transport Permit Generated</h1>
             <QrCodeComponent />
-        </div>
+    
 
     </main>
 </template>
@@ -17,6 +17,10 @@ import QrCodeComponent from '../components/QrCodeComponent.vue';
 <style lang="scss" scoped>
 h1{
     text-align: center;
+}
+
+main{
+    overflow-x: hidden;
 }
 
 </style>
