@@ -10,9 +10,11 @@
   "dependencies": {
     "@iconscout/react-unicons": "^2.0.2",
     "axios": "^1.4.0",
+    "html5-qrcode": "^2.3.8",
     "print-js": "^1.6.0",
     "qrcode": "^1.5.3",
     "vue": "^3.2.25",
+    "vue-barcode-reader": "^1.0.3",
     "vue-circular-progress": "^1.0.0",
     "vue-router": "^4.0.12",
     "vue-upload-component": "^2.8.23",

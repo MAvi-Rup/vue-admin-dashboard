@@ -1,25 +1,12 @@
 <template>
-  <div>
-    <button @click="printTransportPermit(farmers._id)">Print Employee Data</button>
-    
-  </div>
+  <main>
+    <h1>Loan Sanction Page</h1>
+  </main>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
-
-
-
-
 
 </script>
-
-
-
-
-
-
 
 <style lang="scss" scoped>
 h1 {

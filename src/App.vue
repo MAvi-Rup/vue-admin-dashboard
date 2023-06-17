@@ -2,6 +2,7 @@
 	<div class="app">
 		<!-- Sidebar -->
 		<Sidebar />
+		<Scanner />
 
 		<!-- Content -->
 		<router-view />
@@ -10,6 +11,7 @@
 
 <script setup>
 import Sidebar from './components/Sidebar.vue'
+import Scanner from './components/Scanner.vue'
 </script>
 
 <style lang="scss">
