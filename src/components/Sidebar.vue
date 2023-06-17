@@ -36,18 +36,15 @@
 				<span class="material-icons">group</span>
 				<span class="text">View Farmers</span>
 			</router-link>
-			<button class="button" @click="openScanner">
-				<span class="material-icons">qr_code_scanner</span>
-				<span class="text">Scanner</span>
-			</button>
+			
 		</div>
 
 		<div class="flex"></div>
 		
 		<div class="menu">
-			<router-link to="/settings" class="button">
-				<span class="material-icons">settings</span>
-				<span class="text">Settings</span>
+			<router-link to="/" class="button">
+				<span class="material-icons">logout</span>
+				<span class="text">Logout</span>
 			</router-link>
 		</div>
 	</aside>
@@ -64,11 +61,6 @@ const ToggleMenu = () => {
 	localStorage.setItem("is_expanded", is_expanded.value)
 }
 
-const openScanner = () => {
-	console.log('pressed')
-  // Call your function to open the scanner here
-  // This function will be executed when the "Scanner" button is clicked
-}
 </script>
 
 <style lang="scss" scoped>

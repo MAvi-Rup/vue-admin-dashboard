@@ -13,8 +13,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import { StreamBarcodeReader } from 'vue-barcode-reader';
+import { ref } from "vue";
+import { StreamBarcodeReader } from "vue-barcode-reader";
 
 const showScanner = ref(false);
 let qrCodeScanner = null;
@@ -37,9 +37,8 @@ const onDecode = (text) => {
 };
 
 const onLoaded = () => {
-  console.log('Scanner loaded and ready to scan.');
+  console.log("Scanner loaded and ready to scan.");
 };
-
 </script>
 
 <style scoped>
@@ -70,7 +69,7 @@ const onLoaded = () => {
 .close-button {
   position: absolute;
   top: 8px;
-  right: 700px;
+  right: 8px;
   display: flex;
   justify-content: center;
   align-items: center;
