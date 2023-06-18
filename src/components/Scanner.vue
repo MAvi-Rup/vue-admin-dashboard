@@ -15,9 +15,12 @@
 <script setup>
 import { ref } from "vue";
 import { StreamBarcodeReader } from "vue-barcode-reader";
+import { useRouter } from "vue-router";
 
 const showScanner = ref(false);
 let qrCodeScanner = null;
+
+const router = useRouter();
 
 const openScanner = () => {
   showScanner.value = true;
@@ -33,13 +36,26 @@ const closeScanner = () => {
 
 const onDecode = (text) => {
   console.log(`Decoded text: ${text}`);
+  const id = extractIdFromText(text);
+  navigateToQRCode(id);
   closeScanner();
 };
 
 const onLoaded = () => {
   console.log("Scanner loaded and ready to scan.");
 };
+
+const extractIdFromText = (text) => {
+
+  const id = text.split(" - ")[0];
+  return id;
+};
+
+const navigateToQRCode = (id) => {
+  router.push(`/transport-permit/${id}`);
+};
 </script>
+
 
 <style scoped>
 .scanner-container {
@@ -69,14 +85,14 @@ const onLoaded = () => {
 .close-button {
   position: absolute;
   top: 8px;
-  right: 8px;
+  right: 750px;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 32px;
-  height: 32px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
-  background-color: #fff;
+  background-color: #8ceded;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }

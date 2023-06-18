@@ -72,6 +72,7 @@ const printTransportPermit= async (id) => {
   try {
     const response = await fetch(`http://localhost:5001/transport-permit/${id}`) // Replace with your actual API endpoint
     employeeData.value = await response.json();
+    console.log(employeeData)
     printTransportPermitData(employeeData);
   } catch (error) {
     console.error('Error fetching employee data:', error);
