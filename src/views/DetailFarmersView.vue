@@ -2,7 +2,7 @@
     <main class="container">
       <h1><strong>Name: </strong>{{ farmerData ? farmerData.farmersName : 'Loading...' }}</h1>
       <div v-if="farmerData" class="farmer-details">
-         <img class="profile-image" :src="farmerData.url" alt="Profile Image" />
+         <img class="profile-image" :src="farmerData.url" alt="Profile Image" width={300} />
         <p><strong>Account No:</strong> {{ farmerData.accountNo }}</p>
         <p><strong>Bank Name:</strong> {{ farmerData.bankName }}</p>
         <p><strong>Branch:</strong> {{ farmerData.branch }}</p>
@@ -53,6 +53,7 @@
   width: 40%;
   font-family: Arial, sans-serif;
   color: #333;
+  margin-top: 35px;
 }
 strong{
     margin-right: 10px;
