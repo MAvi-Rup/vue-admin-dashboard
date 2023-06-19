@@ -28,6 +28,10 @@
 				<span class="material-icons">credit_card</span>
 				<span class="text">Loan Sanction</span>
 			</router-link>
+			<router-link to="/products" class="button">
+				<span class="material-icons">agriculture</span>
+				<span class="text">Agro Product</span>
+			</router-link>
 			<router-link to="/qrCode" class="button">
 				<span class="material-icons">qr_code_2</span>
 				<span class="text">Print QrCode</span>
@@ -42,7 +46,7 @@
 		<div class="flex"></div>
 		
 		<div class="menu">
-			<router-link to="/" class="button">
+			<router-link to="/logout" class="button">
 				<span class="material-icons">logout</span>
 				<span class="text">Logout</span>
 			</router-link>
