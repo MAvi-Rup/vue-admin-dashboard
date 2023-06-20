@@ -30,6 +30,7 @@ import InputComponent from './InputComponent.vue';
 import { calculateExpiryDate } from '../function/calculateExpiryDate';
 import loadData from '../function/loadData'
 import loadFarmerData from '../function/loadFarmerData';
+import { toast } from 'vue3-toastify';
 
 const farmersName = ref('');
 const mobileNo = ref('');
@@ -64,7 +65,8 @@ const submitForm = (event) => {
     type: tobacoType.value
   };
 
-  fetch('http://localhost:5001/transport-permit', {
+  if(baleQuantity.value != ""){
+    fetch('http://localhost:5001/transport-permit', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -73,7 +75,7 @@ const submitForm = (event) => {
   })
     .then(response => response.json())
     .then(result => {
-      console.log('Data successfully pushed to the database:', result);
+      toast.success('Data successfully posted');
       // Handle the response from the server if needed
     })
     .catch(error => {
@@ -89,7 +91,13 @@ const submitForm = (event) => {
   buyingCenter.value='',
   tobacoType.value='';
   event.target.reset();
-};
+}else{
+  toast.error("Field Can no be Empty.")
+}
+    
+}
+
+  
 
 onMounted(loadData(farmerData));
 </script>
