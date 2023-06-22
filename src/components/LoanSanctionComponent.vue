@@ -69,7 +69,27 @@ const total = computed(() => {
 });
 
 const formSubmit = (totalLoan) => {
-  
+  const url = `http://localhost:5001/transport-permit/${farmerData._id}`;
+  const data = {
+    total: total.value
+  };
+
+  fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(result => {
+      // Handle the response
+      console.log(result);
+    })
+    .catch(error => {
+      // Handle errors
+      console.error('Error:', error);
+    });
 };
 
 const loadSelectedFarmerData = () => {
