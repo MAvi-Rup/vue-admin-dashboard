@@ -3,8 +3,8 @@ export default function loadFarmerData(farmerData, selectedId, farmersName, mobi
     if (selectedFarmer) {
       farmersName.value = selectedFarmer.farmersName;
       mobileNo.value = selectedFarmer.mobileNo;
-      jilla.value = selectedFarmer.selectedGilla;
-      upjilla.value = selectedFarmer.selectedUpjilla;
+      jilla.value = selectedFarmer?.selectedGilla;
+      upjilla.value = selectedFarmer?.selectedUpjilla;
     }
 }
   

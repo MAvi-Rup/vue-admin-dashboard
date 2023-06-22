@@ -39,7 +39,7 @@
     </div>
     <div class="total-container">
       <p class="total-text">Total Value: {{ total }} Tk.</p>
-      <button class="submit-button" type="submit">Submit</button>
+      <button class="submit-button" type="submit" @click="formSubmit()">Submit</button>
     </div>
   </div>
 </template>
