@@ -98,13 +98,11 @@ const total = computed(() => {
 
 const formSubmit = (total) => {
   const url = `http://localhost:5001/transport-permit/${selectedFarmer.value._id}`;
-  console.log(url);
-  console.log(total);
   const data = {
     total: total,
   };
 
-  if (total != "") {
+  if (total !== "") {
     fetch(url, {
       method: "PUT",
       headers: {
@@ -115,13 +113,22 @@ const formSubmit = (total) => {
       .then((response) => response.json())
       .then((result) => {
         toast.success("Product Updated Successfully");
+        resetForm(); // Reset the form after successful submission
       })
       .catch((error) => {
-        toast.error('Error:"Form submission failed"');
+        toast.error("Form submission failed");
       });
-  }else{
-    toast.error("Loan value can not be empty")
+  } else {
+    toast.error("Total value cannot be empty");
   }
+};
+
+const resetForm = () => {
+  farmersName.value = "";
+  mobileNo.value = "";
+  selectedId.value = "";
+  selectedFarmer.value = null;
+  items.value = [{ accessory: "", unit: 1 }];
 };
 
 const loadSelectedFarmerData = () => {
