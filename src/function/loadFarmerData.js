@@ -5,6 +5,7 @@ export default function loadFarmerData(farmerData, selectedId, farmersName, mobi
       mobileNo.value = selectedFarmer.mobileNo;
       jilla.value = selectedFarmer?.selectedGilla;
       upjilla.value = selectedFarmer?.selectedUpjilla;
+     
     }
 }
   

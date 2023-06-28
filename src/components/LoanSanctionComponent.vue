@@ -4,42 +4,69 @@
       <label for="id">F'ID:</label>
       <select v-model="selectedId" @change="loadSelectedFarmerData">
         <option value="">Select ID</option>
-        <option v-for="farmer in farmerData" :key="farmer.id" :value="farmer.id">
+        <option v-for="farmer in farmerData" :key="farmer._id" :value="farmer.id">
           {{ farmer.id }}
         </option>
       </select>
     </div>
-    <InputComponent v-model="farmersName" type="text" :label="'Name'" class="base-input" />
-    <InputComponent v-model="mobileNo" type="text" :label="'Mobile No'" class="base-input" />
+    <InputComponent
+      v-model="farmersName"
+      type="text"
+      :label="'Name'"
+      class="base-input"
+    />
+    <InputComponent
+      v-model="mobileNo"
+      type="text"
+      :label="'Mobile No'"
+      class="base-input"
+    />
 
     <div v-for="(item, index) in items" :key="index">
       <div class="input-wrapper">
-        <span><label for="product" style="margin-right: 20px;">Select:</label></span>
-        <select v-model="item.accessory" @change="handleAccessoryChange(index, item.accessory)">
+        <span><label for="product" style="margin-right: 20px">Select:</label></span>
+        <select
+          v-model="item.accessory"
+          @change="handleAccessoryChange(index, item.accessory)"
+        >
           <option value="">Select Accessory</option>
-          <option v-for="accessory in accessories" :key="accessory.name" :value="accessory.name">
+          <option
+            v-for="accessory in accessories"
+            :key="accessory.name"
+            :value="accessory.name"
+          >
             {{ accessory.name }} ({{ accessory.price }} Tk.)
           </option>
         </select>
         <span>
           <label for="price">Qnt:</label>
-          <input class="input_number" type="number" min="1" step="1" v-model.number="item.unit"
-            @input="handleUnitChange(index, item.unit)" />
-          
-            <button class="rounded-button" @click="removeItem(items, index)">
-              <span class="material-icons">remove</span>
-            </button>
-            <button class="rounded-button" type="button" @click="addItem(items)">
-              <span class="material-icons">add</span>
-            </button>
-          
-        </span>
+          <input
+            class="input_number"
+            type="number"
+            min="1"
+            step="1"
+            v-model.number="item.unit"
+            @input="handleUnitChange(index, item.unit)"
+          />
 
+          <button class="rounded-button" @click="removeItem(items, index)">
+            <span class="material-icons">remove</span>
+          </button>
+          <button class="rounded-button" type="button" @click="addItem(items)">
+            <span class="material-icons">add</span>
+          </button>
+        </span>
       </div>
     </div>
     <div class="total-container">
       <p class="total-text">Total Value: {{ total }} Tk.</p>
-      <button class="submit-button" type="submit" @click="formSubmit()">Submit</button>
+      <button
+        class="submit-button"
+        type="submit"
+        @click="formSubmit(total, selectedFarmer._id)"
+      >
+        Submit
+      </button>
     </div>
   </div>
 </template>
@@ -49,12 +76,13 @@ import { ref, onMounted, computed } from "vue";
 import InputComponent from "./InputComponent.vue";
 import loadFarmerData from "../function/loadFarmerData";
 import loadTransportPermit from "../function/loadTransportPermit";
-import { addItem, handleAccessoryChange, handleUnitChange, removeItem } from "../function/loanSanctionFunction";
 import loadAgroProducts from "../function/loadAgroProducts";
+import { toast } from "vue3-toastify";
 
 const farmersName = ref("");
 const mobileNo = ref("");
 const selectedId = ref("");
+const selectedFarmer = ref(null);
 const farmerData = ref([]);
 const accessories = ref([]);
 
@@ -68,34 +96,40 @@ const total = computed(() => {
   }, 0);
 });
 
-const formSubmit = (totalLoan) => {
-  const url = `http://localhost:5001/transport-permit/${farmerData._id}`;
+const formSubmit = (total) => {
+  const url = `http://localhost:5001/transport-permit/${selectedFarmer.value._id}`;
+  console.log(url);
+  console.log(total);
   const data = {
-    total: total.value
+    total: total,
   };
 
-  fetch(url, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(response => response.json())
-    .then(result => {
-      // Handle the response
-      console.log(result);
+  if (total != "") {
+    fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    .catch(error => {
-      // Handle errors
-      console.error('Error:', error);
-    });
+      .then((response) => response.json())
+      .then((result) => {
+        toast.success("Product Updated Successfully");
+      })
+      .catch((error) => {
+        toast.error('Error:"Form submission failed"');
+      });
+  }else{
+    toast.error("Loan value can not be empty")
+  }
 };
 
 const loadSelectedFarmerData = () => {
+  selectedFarmer.value = farmerData.value.find(
+    (farmer) => farmer.id === selectedId.value
+  );
   loadFarmerData(farmerData.value, selectedId.value, farmersName, mobileNo);
 };
-
 
 onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
 </script>
@@ -162,7 +196,8 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
     justify-content: flex-start;
   }
 
-  select, input {
+  select,
+  input {
     margin-top: 10px;
   }
 
@@ -171,9 +206,6 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
     margin-bottom: 10px; /* Add a bottom margin to create space between select and input */
   }
 }
-
-
-
 
 .rounded-button {
   display: flex;
