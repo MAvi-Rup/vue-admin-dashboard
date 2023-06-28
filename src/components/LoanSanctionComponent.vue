@@ -60,6 +60,7 @@
     </div>
     <div class="total-container">
       <p class="total-text">Total Value: {{ total }} Tk.</p>
+     <p class="total-text">Previous Loan Amount: {{ prevLoanAmount }} Tk.</p>
       <button
         class="submit-button"
         type="submit"
@@ -76,6 +77,7 @@ import { ref, onMounted, computed } from "vue";
 import InputComponent from "./InputComponent.vue";
 import loadFarmerData from "../function/loadFarmerData";
 import loadTransportPermit from "../function/loadTransportPermit";
+import { addItem, handleAccessoryChange, handleUnitChange, removeItem } from "../function/loanSanctionFunction";
 import loadAgroProducts from "../function/loadAgroProducts";
 import { toast } from "vue3-toastify";
 
@@ -85,6 +87,10 @@ const selectedId = ref("");
 const selectedFarmer = ref(null);
 const farmerData = ref([]);
 const accessories = ref([]);
+const prevLoanAmount = computed(() => {
+  return selectedFarmer.value ? selectedFarmer.value.total : 0;
+});
+
 
 const items = ref([{ accessory: "", unit: 1 }]);
 
@@ -135,7 +141,9 @@ const loadSelectedFarmerData = () => {
   selectedFarmer.value = farmerData.value.find(
     (farmer) => farmer.id === selectedId.value
   );
-  loadFarmerData(farmerData.value, selectedId.value, farmersName, mobileNo);
+  console.log(selectedFarmer.value)
+  loadFarmerData(farmerData.value, selectedId.value, farmersName, mobileNo, prevLoanAmount);
+  console.log(prevLoanAmount)
 };
 
 onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
