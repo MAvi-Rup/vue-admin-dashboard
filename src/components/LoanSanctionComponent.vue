@@ -60,7 +60,7 @@
     </div>
     <div class="total-container">
       <p class="total-text">Total Value: {{ total }} Tk.</p>
-     <p class="total-text">Previous Loan Amount: {{ prevLoanAmount }} Tk.</p>
+      <p class="total-text">Previous Loan Amount: {{ prevLoanAmount }} Tk.</p>
       <button
         class="submit-button"
         type="submit"
@@ -77,7 +77,12 @@ import { ref, onMounted, computed } from "vue";
 import InputComponent from "./InputComponent.vue";
 import loadFarmerData from "../function/loadFarmerData";
 import loadTransportPermit from "../function/loadTransportPermit";
-import { addItem, handleAccessoryChange, handleUnitChange, removeItem } from "../function/loanSanctionFunction";
+import {
+  addItem,
+  handleAccessoryChange,
+  handleUnitChange,
+  removeItem,
+} from "../function/loanSanctionFunction";
 import loadAgroProducts from "../function/loadAgroProducts";
 import { toast } from "vue3-toastify";
 
@@ -91,7 +96,6 @@ const prevLoanAmount = computed(() => {
   return selectedFarmer.value ? selectedFarmer.value.total : 0;
 });
 
-
 const items = ref([{ accessory: "", unit: 1 }]);
 
 const total = computed(() => {
@@ -103,7 +107,6 @@ const total = computed(() => {
     return acc + price * item.unit;
   }, previousAmount);
 });
-
 
 const formSubmit = (total) => {
   const url = `http://localhost:5001/transport-permit/${selectedFarmer.value._id}`;
@@ -123,7 +126,7 @@ const formSubmit = (total) => {
       .then((result) => {
         toast.success("Product Updated Successfully");
         resetForm();
-        loadTransportPermit(farmerData) // Reset the form after successful submission
+        loadTransportPermit(farmerData); // Reset the form after successful submission
       })
       .catch((error) => {
         toast.error("Form submission failed");
@@ -145,9 +148,15 @@ const loadSelectedFarmerData = () => {
   selectedFarmer.value = farmerData.value.find(
     (farmer) => farmer.id === selectedId.value
   );
-  console.log(selectedFarmer.value)
-  loadFarmerData(farmerData.value, selectedId.value, farmersName, mobileNo, prevLoanAmount);
-  console.log(prevLoanAmount)
+  console.log(selectedFarmer.value);
+  loadFarmerData(
+    farmerData.value,
+    selectedId.value,
+    farmersName,
+    mobileNo,
+    prevLoanAmount
+  );
+  console.log(prevLoanAmount);
 };
 
 onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
@@ -257,8 +266,35 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
   font-size: 18px;
   font-weight: bold;
 }
+.total-text {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  background-color: red;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 999;
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .total-text {
+    position: fixed;
+    bottom: 20px;
+    top: auto; /* Reset the top position */
+    font-size: 8px;
+  }
+}
+
+
 
 .submit-button {
+  display: block;
+  margin: 0 auto;
   padding: 10px 20px;
   background-color: dodgerblue;
   color: white;
@@ -271,7 +307,9 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
 
 .submit-button:hover {
   background-color: royalblue;
+  box-shadow: 0 0 5px rgba(30, 144, 255, 0.5);
 }
+
 @media (max-width: 768px) {
   .total-container {
     width: 70%;
