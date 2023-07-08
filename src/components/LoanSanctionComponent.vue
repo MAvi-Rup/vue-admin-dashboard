@@ -95,12 +95,15 @@ const prevLoanAmount = computed(() => {
 const items = ref([{ accessory: "", unit: 1 }]);
 
 const total = computed(() => {
+  const previousAmount = selectedFarmer.value ? selectedFarmer.value.total : 0;
+
   return items.value.reduce((acc, item) => {
     const accessory = accessories.value.find((a) => a.name === item.accessory);
     const price = accessory ? accessory.price : 0;
     return acc + price * item.unit;
-  }, 0);
+  }, previousAmount);
 });
+
 
 const formSubmit = (total) => {
   const url = `http://localhost:5001/transport-permit/${selectedFarmer.value._id}`;
@@ -119,7 +122,8 @@ const formSubmit = (total) => {
       .then((response) => response.json())
       .then((result) => {
         toast.success("Product Updated Successfully");
-        resetForm(); // Reset the form after successful submission
+        resetForm();
+        loadTransportPermit(farmerData) // Reset the form after successful submission
       })
       .catch((error) => {
         toast.error("Form submission failed");
