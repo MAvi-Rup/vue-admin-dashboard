@@ -73,13 +73,13 @@ const printTransportPermit = (employeeData) => {
       </html>
     `;
   
-    const printFrame = document.querySelector('iframe');
-    printFrame.contentDocument.open();
-    printFrame.contentDocument.write(printDocument);
-    printFrame.contentDocument.close();
+    const printFrameTransportPermit = document.querySelector('iframe');
+    printFrameTransportPermit.contentDocument.open();
+    printFrameTransportPermit.contentDocument.write(printDocument);
+    printFrameTransportPermit.contentDocument.close();
   
-    printFrame.onload = () => {
-      printFrame.contentWindow.print();
+    printFrameTransportPermit.onload = () => {
+      printFrameTransportPermit.contentWindow.print();
     };
   };
 

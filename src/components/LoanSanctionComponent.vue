@@ -59,7 +59,7 @@
       </div>
     </div>
     <div class="total-container">
-      <p class="total-text">Total Value: {{ total }} Tk.</p>
+      <p class="total">Total Value: {{ total }} Tk.</p>
       <p class="total-text">Previous Loan Amount: {{ prevLoanAmount }} Tk.</p>
       <button
         class="submit-button"
@@ -93,13 +93,14 @@ const selectedFarmer = ref(null);
 const farmerData = ref([]);
 const accessories = ref([]);
 const prevLoanAmount = computed(() => {
-  return selectedFarmer.value ? selectedFarmer.value.total : 0;
+  return selectedFarmer.value?.total ?? 0;
 });
+
 
 const items = ref([{ accessory: "", unit: 1 }]);
 
 const total = computed(() => {
-  const previousAmount = selectedFarmer.value ? selectedFarmer.value.total : 0;
+  const previousAmount = selectedFarmer.value?.total || 0;
 
   return items.value.reduce((acc, item) => {
     const accessory = accessories.value.find((a) => a.name === item.accessory);
@@ -107,6 +108,7 @@ const total = computed(() => {
     return acc + price * item.unit;
   }, previousAmount);
 });
+
 
 const formSubmit = (total) => {
   const url = `http://localhost:5001/transport-permit/${selectedFarmer.value._id}`;
@@ -146,7 +148,8 @@ const resetForm = () => {
 
 const loadSelectedFarmerData = () => {
   selectedFarmer.value = farmerData.value.find(
-    (farmer) => farmer.id === selectedId.value
+    (farmer) => farmer.id === selectedId.value,
+    items.value = [{ accessory: "", unit: 1 }]
   );
   console.log(selectedFarmer.value);
   loadFarmerData(
@@ -156,6 +159,7 @@ const loadSelectedFarmerData = () => {
     mobileNo,
     prevLoanAmount
   );
+  
   console.log(prevLoanAmount);
 };
 

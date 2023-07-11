@@ -26,11 +26,13 @@
           <td style="color: brown;">{{ farmer.type }}</td>
           <td>
             <button @click="printQrCode(farmer._id,farmer.farmersName)" class="view-button">Print QrCode</button>
-            
+            <iframe ref="printFrameQrCode" style="display: none;"></iframe>
+
           </td>
           <td>
             <button @click="() => printTransportPermit(farmer._id)" class="view-button">Print TP</button>
-            <iframe ref="printFrame" style="display: none;"></iframe>
+            <iframe ref="printFrameTransportPermit" style="display: none;"></iframe>
+
 
           </td>
         </tr>
@@ -54,30 +56,33 @@ onMounted(async () => {
   await loadTransportPermit(transportPermit);
 });
 
-const printQrCode = async (id, name) => {
+const printQrCode = async function(id, name) {
   // Generate the QR code value by combining the id and name
   const qrCodeValue = `${id} - ${name}`;
 
   try {
     // Generate the QR code image data URL
     const qrCodeDataURL = await QRCode.toDataURL(qrCodeValue);
-    printQrCodeValue(qrCodeDataURL)
-    
+    printQrCodeValue(qrCodeDataURL, printFrameQrCode); // Access printFrameQrCode directly
   } catch (error) {
     console.error('Error generating QR code:', error);
   }
 };
 
-const printTransportPermit= async (id) => {
+const printTransportPermit = async function(id) {
   try {
-    const response = await fetch(`http://localhost:5001/transport-permit/${id}`) // Replace with your actual API endpoint
+    await this.$nextTick(); // Wait for DOM update
+    const response = await fetch(`http://localhost:5001/transport-permit/${id}`); // Replace with your actual API endpoint
     employeeData.value = await response.json();
-    console.log(employeeData)
-    printTransportPermitData(employeeData);
+    printTransportPermitData(employeeData, this.$refs.printFrameTransportPermit);
   } catch (error) {
     console.error('Error fetching employee data:', error);
   }
-}; 
+};
+
+
+
+
 
 </script>
 
