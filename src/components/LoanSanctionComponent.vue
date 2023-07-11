@@ -59,7 +59,7 @@
       </div>
     </div>
     <div class="total-container">
-      <p class="total">Total Value: {{ total }} Tk.</p>
+      <p class="total">Total Value: <b>{{ total }}</b> Tk.</p>
       <p class="total-text">Previous Loan Amount: {{ prevLoanAmount }} Tk.</p>
       <button
         class="submit-button"
