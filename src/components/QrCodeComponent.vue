@@ -12,6 +12,7 @@
           <th>Tobacco Type</th>
           <th>Print QrCode</th>
           <th>Print TP</th>
+          <th>Delete TP</th>
           <th></th>
         </tr>
       </thead>
@@ -33,6 +34,9 @@
             <iframe ref="printFrame" style="display: none;"></iframe>
 
           </td>
+          <td>
+            <button @click="() => deleteTransportPermit(farmer._id)" class="view-button"><span class="material-icons">delete</span></button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -45,6 +49,7 @@ import QRCode from 'qrcode';
 import loadTransportPermit from '../function/loadTransportPermit';
 import printTransportPermitData from '../function/printTransportPermit';
 import printQrCodeValue from '../function/printQrCodeValue';
+import axios from 'axios';
 
 
 const transportPermit = ref([]);
@@ -78,7 +83,20 @@ const printTransportPermit= async (id) => {
     console.error('Error fetching employee data:', error);
   }
 }; 
-
+const deleteTransportPermit = (id) => {
+  if (confirm('Are you sure you want to delete this transport permit?')) {
+    axios
+      .delete(`http://localhost:5001/transport-permit/${id}`)
+      .then((response) => {
+        console.log('Transport permit deleted:', response.data);
+        loadTransportPermit(transportPermit)
+        // Perform any additional actions after successful deletion
+      })
+      .catch((error) => {
+        console.error('Error deleting transport permit:', error);
+      });
+  }
+};
 </script>
 
 <style scoped lang="scss">
@@ -117,6 +135,11 @@ tbody tr:hover td {
   padding: 5px 10px;
   border-radius: 5px;
   cursor: pointer;
+}
+.material-icons {
+  font-size: 1rem;
+  color: var(--light);
+  transition: 0.2s ease-out;
 }
 
 @media (max-width: 767px) {
