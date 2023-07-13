@@ -42,6 +42,10 @@ const router = createRouter({
 			path: '/qrCode',
 			component: () => import('../views/PrintQrCodeView.vue')
 		},
+		{
+			path: '/add-weight',
+			component: () => import('../views/WeightView.vue')
+		},
 		
 	],
 })

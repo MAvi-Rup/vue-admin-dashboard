@@ -1,12 +1,20 @@
 <template>
   <div class="scanner-container">
-    <div class="scanner-button" @click="openScanner">
-      <span class="material-icons">qr_code_scanner</span>
-    </div>
     <div id="qr-code-scanner" v-if="showScanner">
       <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" />
     </div>
-    <div class="close-button" v-if="showScanner" @click="closeScanner">
+    <div
+      class="scanner-button"
+      v-if="!showScanner"
+      @click="toggleScanner"
+    >
+      <span class="material-icons">qr_code_scanner</span>
+    </div>
+    <div
+      class="close-button"
+      v-else
+      @click="toggleScanner"
+    >
       <span class="material-icons">close</span>
     </div>
   </div>
@@ -21,6 +29,14 @@ const showScanner = ref(false);
 let qrCodeScanner = null;
 
 const router = useRouter();
+
+const toggleScanner = () => {
+  if (showScanner.value) {
+    closeScanner();
+  } else {
+    openScanner();
+  }
+};
 
 const openScanner = () => {
   showScanner.value = true;
@@ -46,7 +62,6 @@ const onLoaded = () => {
 };
 
 const extractIdFromText = (text) => {
-
   const id = text.split(" - ")[0];
   return id;
 };
@@ -56,16 +71,19 @@ const navigateToQRCode = (id) => {
 };
 </script>
 
-
 <style scoped>
 .scanner-container {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
   z-index: 999;
 }
 
 .scanner-button {
+  position: fixed;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -75,6 +93,7 @@ const navigateToQRCode = (id) => {
   background-color: #007bff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  margin-bottom: 20px;
 }
 
 .material-icons {
@@ -83,9 +102,8 @@ const navigateToQRCode = (id) => {
 }
 
 .close-button {
-  position: absolute;
-  top: 8px;
-  right: 750px;
+  position: fixed;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,5 +118,13 @@ const navigateToQRCode = (id) => {
 .close-button .material-icons {
   font-size: 18px;
   color: #007bff;
+}
+
+@media (max-width: 768px) {
+  .scanner-container {
+    bottom: 20px;
+    right: 20px;
+    justify-content: center;
+  }
 }
 </style>

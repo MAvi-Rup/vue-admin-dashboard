@@ -8,8 +8,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@canvasjs/charts": "^3.7.12",
+    "@canvasjs/vue-charts": "^1.0.1",
     "@iconscout/react-unicons": "^2.0.2",
     "axios": "^1.4.0",
+    "canvasjs": "^1.8.3",
+    "chart.js": "^4.3.0",
     "html5-qrcode": "^2.3.8",
     "print-js": "^1.6.0",
     "qrcode": "^1.5.3",

@@ -40,7 +40,7 @@
 				<span class="material-icons">group</span>
 				<span class="text">View Farmers</span>
 			</router-link>
-			<router-link to="/all-farmers" class="button">
+			<router-link to="/add-weight" class="button">
 				<span class="material-icons">scale</span>
 				<span class="text">Weight Measurement</span>
 			</router-link>

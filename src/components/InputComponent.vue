@@ -22,7 +22,6 @@ defineProps({
   },
 });
 </script>
-
 <style lang="scss" scoped>
 .input-wrap {
   position: relative;
@@ -31,8 +30,6 @@ defineProps({
   align-items: center;
   transition: 0.2s;
   margin-top: 20px;
-
-  
 
   input {
     padding: 8px 12px;
@@ -50,15 +47,8 @@ defineProps({
     }
   }
 
-  .label {
-    width: 40px;
-    font-weight: bold;
-    margin-right: 10px;
-  }
-
   input[type="submit"] {
     padding: 10px 20px;
-    width: 25%;
     font-size: 16px;
     border: none;
     border-radius: 4px;
@@ -70,6 +60,25 @@ defineProps({
 
   input[type="submit"]:hover {
     background-color: deepskyblue;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-wrap {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    margin: 0;
+
+    input {
+      margin: 0;
+      width: 100%; /* Set the input field to occupy full width */
+    }
+
+    input[type="submit"] {
+      width: 100%;
+      margin-left: 0;
+    }
   }
 }
 </style>
