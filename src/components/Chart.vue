@@ -3,17 +3,26 @@
         <canvas ref="chartCanvas"></canvas>
     </div>
 </template>
-  
+
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { Chart, registerables } from 'chart.js';
+import getTotalLoanAmount from "../function/getTotalLoanAmount"
+import loadTransportPermit from '../function/loadTransportPermit';
 
+const tpTotal = ref([]);
+const totalLoan = ref(0);
+const total = ref(600);
 Chart.register(...registerables);
-
 const chartCanvas = ref(null);
 let chartInstance = null;
 
-onMounted(() => {
+onMounted(async () => {
+    await getTotalLoanAmount(totalLoan);
+    await loadTransportPermit(tpTotal);
+    
+    total.value = tpTotal.value.length;
+    console.log(total.value)
     renderChart();
 });
 
@@ -39,11 +48,12 @@ const renderChart = () => {
             datasets: [
                 {
                     label: 'General Data',
-                    data: [50, 900, 1000], // Update the data values for User, TP, and Loan Amount
+                    data: [50, total.value, totalLoan.value], // Use totalLoan.value to access the loan value
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)'],
+                        'rgba(153, 102, 255, 0.2)'
+                    ],
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1,
                 },
@@ -62,7 +72,7 @@ const renderChart = () => {
 // Update chart dimensions on window resize
 window.addEventListener('resize', renderChart);
 </script>
-  
+
 <style scoped>
 .chart-container {
     position: relative;
@@ -75,4 +85,3 @@ window.addEventListener('resize', renderChart);
     height: 100% !important;
 }
 </style>
-  

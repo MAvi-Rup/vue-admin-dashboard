@@ -1,63 +1,70 @@
 <template>
     <div class="card-container">
-        <div class="card">
-            <div class="card-icon">
-                <span class="material-icons">person</span>
-            </div>
-            <div class="card-info">
-                <div class="card-title">Users</div>
-                <div class="card-value">{{ userCount }}</div>
-                <div class="card-progress">
-                    <div class="progress-bar" :style="{ width: userProgress }"></div>
-                </div>
-            </div>
+      <div class="card" :class="{ 'hovered': isCardHovered === 'users' }" @mouseover="hoverCard('users')" @mouseleave="hoverCard('')">
+        <div class="card-icon">
+          <span class="material-icons">person</span>
         </div>
-        <div class="card">
-            <div class="card-icon">
-                <span class="material-icons">add_circle</span>
-            </div>
-            <div class="card-info">
-                <div class="card-title">TP Generate Total</div>
-                <div class="card-value">{{ tpTotal }}</div>
-                <div class="card-progress">
-                    <div class="progress-bar" :style="{ width: tpProgress }"></div>
-                </div>
-            </div>
+        <div class="card-info">
+          <div class="card-title">Users</div>
+          <div class="card-value">{{ userCount }}</div>
         </div>
-        <div class="card">
-            <div class="card-icon">
-                <span class="material-icons">credit_score</span>
-            </div>
-            <div class="card-info">
-                <div class="card-title">Loan Sanction Amount</div>
-                <div class="card-value">{{ loanAmount }}</div>
-                <div class="card-progress">
-                    <div class="progress-bar" :style="{ width: loanProgress }"></div>
-                </div>
-            </div>
+      </div>
+      <div class="card" :class="{ 'hovered': isCardHovered === 'tpGenerate' }" @mouseover="hoverCard('tpGenerate')" @mouseleave="hoverCard('')">
+        <div class="card-icon">
+          <span class="material-icons">add_circle</span>
         </div>
+        <div class="card-info">
+          <div class="card-title">TP Generate Total</div>
+          <div class="card-value">{{ total }}</div>
+        </div>
+      </div>
+      <div class="card" :class="{ 'hovered': isCardHovered === 'loanSanction' }" @mouseover="hoverCard('loanSanction')" @mouseleave="hoverCard('')">
+        <div class="card-icon">
+          <span class="material-icons">credit_score</span>
+        </div>
+        <div class="card-info">
+          <div class="card-title">Loan Sanction Amount</div>
+          <div class="card-value">{{ loanAmount }} Tk</div>
+        </div>
+      </div>
     </div>
-</template>
+  </template>
   
-<script setup>
-const userCount = 100;
-const tpTotal = 100;
-const loanAmount = "$1,000,000";
-
-const userProgress = `${userCount}%`;
-const tpProgress = `${tpTotal}%`;
-const loanProgress = `${loanAmount}%`;
-</script>
+  <script setup>
+  import { ref, onMounted, onBeforeUnmount } from 'vue';
+  import getTotalLoanAmount from "../function/getTotalLoanAmount";
+  import loadTransportPermit from '../function/loadTransportPermit';
   
-<style scoped>
-.card-container {
+  const userCount = 7;
+  const tpTotal = ref([]);
+  const loanAmount = ref("");
+  const total = ref(0);
+  const isCardHovered = ref('');
+  
+  onMounted(async () => {
+    await getTotalLoanAmount(loanAmount);
+    await loadTransportPermit(tpTotal);
+    total.value = tpTotal.value.length;
+  });
+  
+  onBeforeUnmount(() => {
+    // Cleanup code if needed
+  });
+  
+  const hoverCard = (card) => {
+    isCardHovered.value = card;
+  };
+  </script>
+  
+  <style scoped>
+  .card-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     grid-gap: 20px;
     margin-top: 15px;
-}
-
-.card {
+  }
+  
+  .card {
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -65,42 +72,35 @@ const loanProgress = `${loanAmount}%`;
     align-items: center;
     justify-content: flex-start;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-}
-
-.card-icon {
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card.hovered {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    background-color: rgb(220, 236, 191);
+  }
+  
+  .card-icon {
     font-size: 24px;
     margin-right: 20px;
-}
-
-.card-title {
+  }
+  
+  .card-title {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 8px;
-}
-
-.card-value {
+  }
+  
+  .card-value {
     font-size: 24px;
     font-weight: bold;
-}
-
-.card-progress {
-    width: 100%;
-    height: 10px;
-    background-color: #eee;
-    border-radius: 5px;
-    margin-top: 8px;
-}
-
-.progress-bar {
-    height: 100%;
-    border-radius: 5px;
-    background-color: #4caf50;
-}
-
-.material-icons {
+  }
+  
+  .material-icons {
     font-size: 2rem;
     color: var(--primary);
     transition: 0.2s ease-out;
-}
-</style>
+  }
+  </style>
   
