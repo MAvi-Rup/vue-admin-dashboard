@@ -18,7 +18,13 @@
     <InputComponent v-model="village" type="text" :label="'Village'" class="base-input" />
     <InputComponent v-model="nid" type="number" :label="'NID'" class="base-input" />
     <InputComponent v-model="mobileNo" type="number" :label="'Mobile Number'" class="base-input" />
-    <InputComponent v-model="location" type="text" :label="'Location'" class="base-input" />
+    <div class="input-wrap">
+      <label for="location">Location:</label>
+      <div class="input-container">
+        <input v-model="location" type="text" id="location" class="base-input" />
+        <button @click="getLocationCoordinates" class="location-button">Get Location</button>
+      </div>
+    </div>
     <InputComponent v-model="plantation" type="text" :label="'Plantation'" class="base-input" />
     <InputComponent v-model="target" type="text" :label="'Target'" class="base-input" />
     <InputComponent v-model="accountNo" type="number" :label="'Account Number'" class="base-input" />
@@ -136,6 +142,23 @@ const submitForm = async (event) => {
   });
 
 }
+const getLocationCoordinates = () => {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        const { latitude, longitude } = position.coords;
+        location.value = `${latitude}, ${longitude}`;
+      },
+      (error) => {
+        console.error('Error getting location:', error.message);
+        toast.error('Error getting location. Please try again.');
+      }
+    );
+  } else {
+    console.error('Geolocation is not supported by this browser.');
+    toast.error('Geolocation is not supported by this browser.');
+  }
+};
 
 </script>
 
@@ -177,6 +200,31 @@ h1 {
 
     margin-right: 10px;
   }
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.input-container input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.location-button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.location-button:hover {
+  background-color: #45a049;
 }
 </style>
 
