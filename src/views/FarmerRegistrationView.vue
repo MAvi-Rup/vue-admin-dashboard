@@ -19,11 +19,9 @@
     <InputComponent v-model="nid" type="number" :label="'NID'" class="base-input" />
     <InputComponent v-model="mobileNo" type="number" :label="'Mobile Number'" class="base-input" />
     <div class="input-wrap">
-      <label for="location">Location:</label>
-      <div class="input-container">
+        <label for="Location">Location</label>
         <input v-model="location" type="text" id="location" class="base-input" />
-        <button @click="getLocationCoordinates" class="location-button">Get Location</button>
-      </div>
+        <button @click="getLocationCoordinates" class="location-button"><span class="material-icons">location_on</span></button>
     </div>
     <InputComponent v-model="plantation" type="text" :label="'Plantation'" class="base-input" />
     <InputComponent v-model="target" type="text" :label="'Target'" class="base-input" />
@@ -162,8 +160,6 @@ const getLocationCoordinates = () => {
 
 </script>
 
-
-
 <style lang="scss" scoped>
 h1 {
   text-align: center;
@@ -174,15 +170,13 @@ h1 {
   display: flex;
   justify-content: center;
   align-items: center;
-
   margin-top: 20px;
 
-
-
-  select,input {
+  select,
+  input {
     padding: 8px 12px;
     font-size: 16px;
-    width: 50%;
+    width: 50%; /* Set the width to 50% */
     border: 2px solid #ccc;
     border-radius: 4px;
     transition: 0.2s;
@@ -197,34 +191,46 @@ h1 {
 
   label {
     width: 40px;
-
     margin-right: 10px;
+  }
+  
+  .location-button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-left: 10px;
+  }
+
+  .location-button:hover {
+    background-color: #45a049;
   }
 }
 
-.input-container {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
+@media screen and (max-width: 600px) {
+  .input-wrap {
+    flex-direction: column;
+    align-items: flex-start;
 
-.input-container input {
-  flex-grow: 1;
-  margin-right: 10px;
-}
+    select,
+    input {
+      width: 100%; /* Set the width to 100% for mobile devices */
+      margin-left: 0;
+      margin-top: 10px;
+    }
 
-.location-button {
-  background-color: #4caf50;
-  color: #fff;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.location-button:hover {
-  background-color: #45a049;
+    label {
+      width: auto;
+      margin-right: 10px;
+    }
+    
+    .location-button {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
 }
 </style>
-

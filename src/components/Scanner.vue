@@ -94,6 +94,11 @@ const navigateToQRCode = (id) => {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
   margin-bottom: 20px;
+  transition: background-color 0.3s; /* Add transition for hover effect */
+}
+
+.scanner-button:hover {
+  background-color: #0056b3; /* Change background color on hover */
 }
 
 .material-icons {
