@@ -33,10 +33,12 @@
   <script setup>
   import { ref, onMounted, onBeforeUnmount } from 'vue';
   import getTotalLoanAmount from "../function/getTotalLoanAmount";
+import loadData from '../function/loadData';
   import loadTransportPermit from '../function/loadTransportPermit';
   
-  const userCount = 7;
+  const userCount = ref(0);
   const tpTotal = ref([]);
+  const totalFarmers = ref([]);
   const loanAmount = ref("");
   const total = ref(0);
   const isCardHovered = ref('');
@@ -44,7 +46,9 @@
   onMounted(async () => {
     await getTotalLoanAmount(loanAmount);
     await loadTransportPermit(tpTotal);
+    await loadData(totalFarmers)
     total.value = tpTotal.value.length;
+    userCount.value=totalFarmers.value.length;
   });
   
   onBeforeUnmount(() => {

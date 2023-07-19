@@ -9,10 +9,13 @@ import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import getTotalLoanAmount from "../function/getTotalLoanAmount"
 import loadTransportPermit from '../function/loadTransportPermit';
+import loadData from '../function/loadData';
 
 const tpTotal = ref([]);
+const totalFarmers = ref([]);
+const userCount = ref(0);
 const totalLoan = ref(0);
-const total = ref(600);
+const totalTp = ref(0);
 Chart.register(...registerables);
 const chartCanvas = ref(null);
 let chartInstance = null;
@@ -20,9 +23,11 @@ let chartInstance = null;
 onMounted(async () => {
     await getTotalLoanAmount(totalLoan);
     await loadTransportPermit(tpTotal);
+    await loadData(totalFarmers)
     
-    total.value = tpTotal.value.length;
-    console.log(total.value)
+    totalTp.value = tpTotal.value.length;
+    userCount.value=totalFarmers.value.length;
+    console.log(totalTp.value)
     renderChart();
 });
 
@@ -48,7 +53,7 @@ const renderChart = () => {
             datasets: [
                 {
                     label: 'General Data',
-                    data: [50, total.value, totalLoan.value], // Use totalLoan.value to access the loan value
+                    data: [userCount.value, totalTp.value, totalLoan.value], // Use totalLoan.value to access the loan value
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(75, 192, 192, 0.2)',
