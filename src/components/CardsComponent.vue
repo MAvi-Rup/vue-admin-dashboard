@@ -5,7 +5,7 @@
           <span class="material-icons">person</span>
         </div>
         <div class="card-info">
-          <div class="card-title">Users</div>
+          <div class="card-title">Register Farmers</div>
           <div class="card-value">{{ userCount }}</div>
         </div>
       </div>

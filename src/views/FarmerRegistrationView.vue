@@ -37,9 +37,9 @@
 </template>
 
 <script setup>
+
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
-
 import InputComponent from '../components/InputComponent.vue';
 import { ref, watch } from 'vue';
 import clearFormData from '../function/clearFormData';
@@ -47,14 +47,15 @@ import { jillaUpjilaMap } from "../Data/jillaUpjilaMap"
 import { postFarmersData } from "../function/postFarmersData"
 
 
+
 const farmersName = ref('');
 const fatherName = ref('');
 const village = ref('');
 const nid = ref('');
 const mobileNo = ref('');
-const location = ref('');
 const plantation = ref('');
 const target = ref('');
+const location = ref('');
 const accountNo = ref('');
 const bankName = ref('');
 const branch = ref('');

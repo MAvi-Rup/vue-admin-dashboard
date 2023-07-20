@@ -7,7 +7,7 @@ export default {
         exportEnabled: true,
         theme: "light2",
         title: {
-          text: "Quarterly Sales by Area"
+          text: "Yearly Sales by Area"
         },
         axisY: {
           prefix: "Tk",
@@ -31,10 +31,10 @@ export default {
             color: "#4caf50", // Green color
             yValueFormatString: "$##,###K",
             dataPoints: [
-              { label: "Q1", y: 50 },
-              { label: "Q2", y: 100 },
-              { label: "Q3", y: 120 },
-              { label: "Q4", y: 140 }
+              { label: "2023", y: 50 },
+              { label: "2022", y: 100 },
+              { label: "2021", y: 120 },
+              { label: "2020", y: 140 }
             ]
           },
           {
@@ -44,10 +44,10 @@ export default {
             color: "#81c784", // Light green color
             yValueFormatString: "$##,###K",
             dataPoints: [
-              { label: "Q1", y: 75 },
-              { label: "Q2", y: 115 },
-              { label: "Q3", y: 150 },
-              { label: "Q4", y: 160 }
+              { label: "2023", y: 70 },
+              { label: "2022", y: 115 },
+              { label: "2021", y: 150 },
+              { label: "2020", y: 160 }
             ]
           },
           {
@@ -57,10 +57,10 @@ export default {
             color: "#aed581", // Pale green color
             yValueFormatString: "$##,###K",
             dataPoints: [
-              { label: "Q1", y: 110 },
-              { label: "Q2", y: 120 },
-              { label: "Q3", y: 160 },
-              { label: "Q4", y: 170 }
+              { label: "2023", y: 110 },
+              { label: "2022", y: 120 },
+              { label: "2021", y: 160 },
+              { label: "2020", y: 170 }
             ]
           },
           {
@@ -70,10 +70,10 @@ export default {
             color: "#dcedc8", // Lightest green color
             yValueFormatString: "$##,###K",
             dataPoints: [
-              { label: "Q1", y: 140 },
-              { label: "Q2", y: 150 },
-              { label: "Q3", y: 170 },
-              { label: "Q4", y: 180 }
+              { label: "2023", y: 140 },
+              { label: "2022", y: 150 },
+              { label: "2021", y: 170 },
+              { label: "2020", y: 180 }
             ]
           }
         ]
