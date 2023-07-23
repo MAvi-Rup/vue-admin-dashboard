@@ -1,3 +1,7 @@
+<template>
+  <CanvasJSChart :options="options" :styles="styleOptions" />
+</template>
+
 <script>
 export default {
   data() {
@@ -28,7 +32,7 @@ export default {
             type: "column",
             name: "Kustia",
             showInLegend: true,
-            color: "#4caf50", // Green color
+            color: "#145A32", // Bright Blue color
             yValueFormatString: "$##,###K",
             dataPoints: [
               { label: "2023", y: 50 },
@@ -41,7 +45,7 @@ export default {
             type: "column",
             name: "Chittagong",
             showInLegend: true,
-            color: "#81c784", // Light green color
+            color: "#229954", // Bright Green color
             yValueFormatString: "$##,###K",
             dataPoints: [
               { label: "2023", y: 70 },
@@ -54,7 +58,7 @@ export default {
             type: "column",
             name: "Rajshahi",
             showInLegend: true,
-            color: "#aed581", // Pale green color
+            color: "#28B463", // Bright Orange color
             yValueFormatString: "$##,###K",
             dataPoints: [
               { label: "2023", y: 110 },
@@ -67,7 +71,7 @@ export default {
             type: "column",
             name: "Natore",
             showInLegend: true,
-            color: "#dcedc8", // Lightest green color
+            color: "#58D68D", // Bright Pink color
             yValueFormatString: "$##,###K",
             dataPoints: [
               { label: "2023", y: 140 },
@@ -100,6 +104,3 @@ export default {
   }
 };
 </script>
-<template>
-  <CanvasJSChart :options="options" :styles="styleOptions" />
-</template>

@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="product in products" :key="product._id">
           <td>{{ product.name }}</td>
-          <td>{{ product.price }}</td>
+          <td>{{ product.price }} Tk</td>
           <td>
             <button @click="showEditModal(product)">Edit</button>
             <button class="delete-button" @click="deleteProduct(product._id)">
@@ -49,14 +49,14 @@
   <div class="modal" v-if="showModalforAddProduct">
     <!-- Modal content -->
     <div class="modal-content">
-      <h2>Edit Product</h2>
+      <h2>Add Product</h2>
       <label>Name:</label>
       <input v-model="newAddedProductName" type="text" />
       <br />
       <label>Price:</label>
       <input v-model="newAddedProductPrice" type="number" />
       <div class="modal-buttons">
-        <button @click="addNewProduct">Product</button>
+        <button @click="addNewProduct">Save</button>
         <button @click="cancelAdding">Cancel</button>
       </div>
     </div>
@@ -68,6 +68,7 @@ import axios from "axios";
 import loadAgroProducts from "../function/loadAgroProducts";
 import { ref, onMounted } from "vue";
 import { toast } from "vue3-toastify";
+import 'vue3-toastify/dist/index.css';
 
 const newAddedProductName = ref("");
 const newAddedProductPrice = ref("");
@@ -151,11 +152,12 @@ const addNewProduct = () => {
   axios
     .post("http://localhost:5001/products", newProduct)
     .then((response) => {
-      toast.success("Product added successfully");
+      
       loadAgroProducts(products);
       showModalforAddProduct.value = false;
       newAddedProductName.value = "";
       newAddedProductPrice.value = "";
+      toast.success("Product added successfully");
     })
     .catch((error) => {
       console.log("Error adding product:", error);
@@ -169,6 +171,7 @@ const cancelAdding = () => {
   newAddedProductPrice.value = "";
 };
 </script>
+
 <style lang="scss" scoped>
 .modal {
   position: fixed;
@@ -211,13 +214,15 @@ const cancelAdding = () => {
     }
   }
 }
+
 .table-container {
   overflow-x: auto;
   margin-top: 20px;
   width: 60%;
   margin: auto;
+
   @media (max-width: 768px) {
-    width: 100%; // Set width to 100% for screens up to 768px wide
+    width: 100%; /* Set width to 100% for screens up to 768px wide */
   }
 }
 
@@ -272,6 +277,44 @@ button {
 
   &:hover {
     background-color: #48d790;
+  }
+}
+
+/* Media Query for smaller screens */
+@media (max-width: 768px) {
+  .table-container {
+    width: 100%; /* Set width to 100% for screens up to 768px wide */
+  }
+
+  .modal-content {
+    max-width: 90%; /* Reduce the max-width of the modal content on small screens */
+  }
+
+  button {
+    font-size: 14px; /* Reduce the font size of buttons on small screens */
+    padding: 8px 12px; /* Adjust the padding of buttons on small screens */
+  }
+
+  .modal-buttons {
+    margin-top: 10px; /* Reduce the top margin of modal-buttons on small screens */
+  }
+
+  .add-button {
+    font-size: 24px; /* Reduce the font size of add-button on small screens */
+    width: 40px; /* Adjust the width of add-button on small screens */
+    height: 40px; /* Adjust the height of add-button on small screens */
+    margin-top: 10px; /* Reduce the top margin of add-button on small screens */
+  }
+  
+  .delete-button {
+    margin-left: 0;
+    margin-top: 5px;
+  }
+  
+  /* Ensure the modal is centered on small screens */
+  .modal {
+    align-items: center;
+    padding: 10px; /* Add some padding to center the modal properly */
   }
 }
 </style>

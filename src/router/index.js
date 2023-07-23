@@ -46,6 +46,10 @@ const router = createRouter({
 			path: '/add-weight',
 			component: () => import('../views/WeightView.vue')
 		},
+		{
+			path: '/tobacco-purchase',
+			component: () => import('../views/TobaccoPurchaseView.vue')
+		},
 		
 	],
 })

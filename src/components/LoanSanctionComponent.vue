@@ -49,12 +49,14 @@
             @input="handleUnitChange(index, item.unit)"
           />
 
-          <button class="rounded-button" @click="removeItem(items, index)">
-            <span class="material-icons">remove</span>
-          </button>
-          <button class="rounded-button" type="button" @click="addItem(items)">
-            <span class="material-icons">add</span>
-          </button>
+          <div class="rounded-button-container">
+            <button class="rounded-button" @click="removeItem(items, index)">
+              <span class="material-icons">remove</span>
+            </button>
+            <button class="rounded-button" type="button" @click="addItem(items)">
+              <span class="material-icons">add</span>
+            </button>
+          </div>
         </span>
       </div>
     </div>
@@ -178,7 +180,7 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
     padding: 8px 12px;
     font-size: 16px;
     width: 100%;
-    max-width: 200px;
+    max-width: 400px;
     border: 2px solid #ccc;
     border-radius: 4px;
     transition: 0.2s;
@@ -219,18 +221,31 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
     margin-right: 5px;
     margin-left: 20px;
   }
+
+  .rounded-button-container{
+    display: flex;
+  }
+
 }
 
 /* Media Query for smaller screens */
 @media (max-width: 768px) {
   .input-wrapper {
+    display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
-  }
 
-  select,
-  input {
-    margin-top: 10px;
+    justify-content: flex-start;
+
+    label{
+      margin-left: 0;
+    }
+    span {
+      display: flex;
+      flex-wrap: wrap;
+     
+      justify-content: center;
+      align-items: center;
+    }
   }
 
   select {
@@ -258,7 +273,7 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
 }
 
 .total-container {
-  width: 20%;
+  width: 25%;
   margin: auto;
   display: flex;
   align-items: center;
@@ -277,7 +292,7 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
   font-size: 24px;
   font-weight: bold;
   color: white;
-  background-color: red;
+  background-color: #E74C3C;
   padding: 10px;
   border-radius: 4px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -308,6 +323,12 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
+.rounded-button {
+  width: 40px;
+  height: 40px;
+  margin: 5px; /* Add a small margin around the rounded buttons */
+}
+
 
 .submit-button:hover {
   background-color: royalblue;
@@ -316,7 +337,7 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
 
 @media (max-width: 768px) {
   .total-container {
-    width: 70%;
+    width: 100%;
     margin: auto;
     margin-top: 20px;
   }
