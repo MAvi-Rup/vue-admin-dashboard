@@ -342,4 +342,51 @@ onMounted(loadTransportPermit(farmerData), loadAgroProducts(accessories));
     margin-top: 20px;
   }
 }
+.qrcode-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.input-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  label {
+    width: 50px;
+    margin-right: 10px;
+  }
+
+  input {
+    padding: 8px 12px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: 0.2s;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: dodgerblue;
+    box-shadow: 0 0 5px dodgerblue;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-wrap {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  select {
+    max-width: 350px;
+    margin-left: 0;
+    width: 100%;
+  }
+}
 </style>

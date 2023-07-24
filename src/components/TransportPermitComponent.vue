@@ -31,6 +31,7 @@ import { calculateExpiryDate } from '../function/calculateExpiryDate';
 import loadData from '../function/loadData'
 import loadFarmerData from '../function/loadFarmerData';
 import { toast } from 'vue3-toastify';
+import 'vue3-toastify/dist/index.css';
 
 const farmersName = ref('');
 const mobileNo = ref('');
@@ -49,7 +50,7 @@ const expiryDate = ref(calculateExpiryDate(currentDate))
 const loadSelectedFarmerData = () => {
   loadFarmerData(farmerData.value, selectedId.value, farmersName, mobileNo, farmerJilla, farmerUpjilla);
 };
-const submitForm = (event) => {
+const submitForm = async (event) => {
   event.preventDefault();
 
   const data = {
@@ -66,45 +67,79 @@ const submitForm = (event) => {
   };
 
   if (baleQuantity.value !== "") {
-    fetch('http://localhost:5001/transport-permit', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    })
-      .then(response => response.json())
-      .then(result => {
-        toast.success('Data successfully posted');
-        // Handle the response from the server if needed
-      })
-      .catch(error => {
+    // Check if the ID has a previous transport permit
+    const hasExistingPermit = await checkExistingTransportPermit(selectedId.value);
+
+    if (!hasExistingPermit) {
+      // ID does not have a previous permit, proceed to submit the form
+      try {
+        const response = await fetch('http://localhost:5001/transport-permit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (response.ok) {
+          toast.success('Data successfully posted');
+          // Handle the response from the server if needed
+          // Reset the form fields after successful submission
+          selectedId.value = '';
+          farmersName.value = '';
+          mobileNo.value = '';
+          baleQuantity.value = '';
+          buyingCenter.value = '';
+          tobacoType.value = '';
+          event.target.reset();
+        } else {
+          // Handle error response from server (optional)
+          toast.error('This id already has a Transport Permit');
+          selectedId.value = '';
+          farmersName.value = '';
+          mobileNo.value = '';
+          baleQuantity.value = '';
+          buyingCenter.value = '';
+          tobacoType.value = '';
+          event.target.reset();
+        }
+      } catch (error) {
         console.error('Error pushing data to the database:', error);
         // Handle any errors that occurred during the request
-      });
-
-    // Reset the form fields after submission
-    selectedId.value = '';
-    farmersName.value = '';
-    mobileNo.value = '';
-    baleQuantity.value = '';
-    buyingCenter.value = '';
-    tobacoType.value = '';
-    event.target.reset();
+        toast.error('Error posting data to the server');
+      }
+    } else {
+      // Show error using toast when a transport permit with the same ID already exists
+      toast.error("Transport permit with this ID already exists.");
+    }
   } else {
-    toast.error("Field Can not be Empty.")
+    toast.error("Field Can not be Empty.");
   }
+};
 
-}
 
 const isMobile = computed(() => {
   return window.innerWidth <= 768;
 });
 
 onMounted(loadData(farmerData));
+
+// Frontend Code
+const checkExistingTransportPermit = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:5001/transport-permit/exists/${id}`);
+    const data = await response.json();
+    return data; // Return true if a permit exists, false otherwise
+  } catch (error) {
+    console.error('Error checking existing transport permit:', error);
+    return false;
+  }
+};
+
 </script>
 
 <style lang="scss" scoped>
+
 .input-wrap {
   position: relative;
   display: flex;

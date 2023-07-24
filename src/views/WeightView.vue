@@ -13,5 +13,8 @@ import WeightScanner from '../components/WeightScanner.vue';
 </script>
 
 <style lang="scss" scoped>
+h1{
+    text-align: center;
+}
 
 </style>

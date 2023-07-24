@@ -33,7 +33,7 @@ export default {
             name: "Kustia",
             showInLegend: true,
             color: "#145A32", // Bright Blue color
-            yValueFormatString: "$##,###K",
+            yValueFormatString: "$##,### TK",
             dataPoints: [
               { label: "2023", y: 50 },
               { label: "2022", y: 100 },
@@ -46,7 +46,7 @@ export default {
             name: "Chittagong",
             showInLegend: true,
             color: "#229954", // Bright Green color
-            yValueFormatString: "$##,###K",
+            yValueFormatString: "$##,### TK",
             dataPoints: [
               { label: "2023", y: 70 },
               { label: "2022", y: 115 },
@@ -59,7 +59,7 @@ export default {
             name: "Rajshahi",
             showInLegend: true,
             color: "#28B463", // Bright Orange color
-            yValueFormatString: "$##,###K",
+            yValueFormatString: "$##,### TK",
             dataPoints: [
               { label: "2023", y: 110 },
               { label: "2022", y: 120 },
@@ -72,7 +72,7 @@ export default {
             name: "Natore",
             showInLegend: true,
             color: "#58D68D", // Bright Pink color
-            yValueFormatString: "$##,###K",
+            yValueFormatString: "$##,### TK",
             dataPoints: [
               { label: "2023", y: 140 },
               { label: "2022", y: 150 },

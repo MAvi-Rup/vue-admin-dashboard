@@ -11,7 +11,7 @@
       <p><strong>Expiry Date:</strong> {{ transportPermitData ? transportPermitData.expiryDate : 'Loading...' }}</p>
       <p><strong>Farmer Jilla:</strong> {{ transportPermitData ? transportPermitData.farmerJilla : 'Loading...' }}</p>
       <p><strong>Farmer Upjilla:</strong> {{ transportPermitData ? transportPermitData.farmerUpjilla : 'Loading...' }}</p>
-      <p v-if="transportPermitData && transportPermitData.weight"><strong>Weight:</strong> {{ transportPermitData.weight }}</p>
+      <p v-if="transportPermitData && transportPermitData.weight"><strong>Weight:</strong> {{ transportPermitData.weight }} KJ</p>
       <p v-if="transportPermitData && transportPermitData.total"><strong>Loan Amount:</strong> {{ transportPermitData.total }} Tk</p>
       </div>
     </main>
