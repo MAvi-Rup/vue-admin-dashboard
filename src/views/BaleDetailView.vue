@@ -5,14 +5,14 @@
       <p><strong>ID:</strong> {{ transportPermitData ? transportPermitData.id : 'Loading...' }}</p>
       <p><strong>Mobile No:</strong> {{ transportPermitData ? transportPermitData.mobileNo : 'Loading...' }}</p>
       <p><strong>Type:</strong> <span>{{ transportPermitData ? transportPermitData.type : 'Loading...' }}</span></p>
-      <p><strong>Bale Quantity:</strong> {{ transportPermitData ? transportPermitData.baleQuantity : 'Loading...' }}</p>
+      <p><strong>Bale Quantity:</strong> {{ transportPermitData ? transportPermitData.baleQuantity : 'Loading...' }} Kj</p>
       <p><strong>Buying Center:</strong> {{ transportPermitData ? transportPermitData.buyingCenter : 'Loading...' }}</p>
       <p><strong>Buying Date:</strong> {{ transportPermitData ? transportPermitData.buyingDate : 'Loading...' }}</p>
       <p><strong>Expiry Date:</strong> {{ transportPermitData ? transportPermitData.expiryDate : 'Loading...' }}</p>
       <p><strong>Farmer Jilla:</strong> {{ transportPermitData ? transportPermitData.farmerJilla : 'Loading...' }}</p>
       <p><strong>Farmer Upjilla:</strong> {{ transportPermitData ? transportPermitData.farmerUpjilla : 'Loading...' }}</p>
       <p v-if="transportPermitData && transportPermitData.weight"><strong>Weight:</strong> {{ transportPermitData.weight }}</p>
-      <p v-if="transportPermitData && transportPermitData.total"><strong>Loan Amount:</strong> {{ transportPermitData.total }}</p>
+      <p v-if="transportPermitData && transportPermitData.total"><strong>Loan Amount:</strong> {{ transportPermitData.total }} Tk</p>
       </div>
     </main>
   </template>

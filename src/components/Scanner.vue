@@ -1,8 +1,5 @@
 <template>
   <div class="scanner-container">
-    <div id="qr-code-scanner" v-if="showScanner">
-      <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" />
-    </div>
     <div
       class="scanner-button"
       v-if="!showScanner"
@@ -10,12 +7,15 @@
     >
       <span class="material-icons">qr_code_scanner</span>
     </div>
+
     <div
-      class="close-button"
-      v-else
-      @click="toggleScanner"
+      class="scanner-popup"
+      v-if="showScanner"
     >
-      <span class="material-icons">close</span>
+      <StreamBarcodeReader @decode="onDecode" @loaded="onLoaded" />
+      <div class="close-button" @click="toggleScanner">
+        <span class="material-icons">close</span>
+      </div>
     </div>
   </div>
 </template>
@@ -79,6 +79,7 @@ const navigateToQRCode = (id) => {
   align-items: center;
   justify-content: flex-end;
   z-index: 999;
+  margin-bottom: 30px;
 }
 
 .scanner-button {
@@ -108,7 +109,7 @@ const navigateToQRCode = (id) => {
 
 .close-button {
   position: fixed;
-  bottom: 0;
+  bottom: -100px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,6 +119,7 @@ const navigateToQRCode = (id) => {
   background-color: #8ceded;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  z-index: 9999;
 }
 
 .close-button .material-icons {
@@ -125,11 +127,27 @@ const navigateToQRCode = (id) => {
   color: #007bff;
 }
 
+.scanner-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  width: 50%; /* Adjust the width as needed */
+  height: 30%; /* Adjust the height as needed */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 @media (max-width: 768px) {
-  .scanner-container {
-    bottom: 20px;
-    right: 20px;
-    justify-content: center;
+  .close-button {
+    position: absolute;
+    bottom: 0;
   }
 }
+
 </style>
